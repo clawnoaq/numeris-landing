@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NUMERIS — Découvre le schéma invisible qui explique qui tu es</title>
+  <meta name="description" content="NUMERIS te révèle le schéma invisible qui explique qui tu es. App de numérologie premium en français. Rejoins les fondateurs à 5€." />
+  <meta property="og:title" content="NUMERIS — Découvre le schéma invisible qui explique qui tu es" />
+  <meta property="og:description" content="Rejoins les premières fondatrices de NUMERIS et accède à l'app avant tout le monde. Offre fondateur à 5€ — 500 places seulement." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0D0F1A;
+      --bg-card: #131626;
+      --bg-card2: #161929;
+      --gold: #C9A84C;
+      --gold-light: #E2C47A;
+      --gold-dim: rgba(201, 168, 76, 0.15);
+      --indigo: #6B5CE7;
+      --indigo-light: #8B7EF7;
+      --indigo-dim: rgba(107, 92, 231, 0.15);
+      --white: #F5F3EE;
+      --text-muted: #8A8FA8;
+      --border: rgba(201, 168, 76, 0.2);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ─── GLOW ORBS ─── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(107,92,231,0.18) 0%, transparent 70%);
+      top: -100px; left: -100px;
+    }
+    .orb-2 {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+      top: 200px; right: -80px;
+    }
+    .orb-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(107,92,231,0.1) 0%, transparent 70%);
+      bottom: 10%; left: 30%;
+    }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 15, 26, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--gold);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding-top: 80px;
+      padding-bottom: 80px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-dim);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 8vw, 52px);
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+
+    /* ─── EMAIL FORM ─── */
+    .email-form-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+    }
+
+    .email-form-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .email-input {
+      width: 100%;
+      height: 52px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-sm);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      padding: 0 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-input::placeholder { color: var(--text-muted); }
+    .email-input:focus { border-color: var(--gold); }
+
+    .btn-email {
+      width: 100%;
+      height: 52px;
+      background: var(--indigo);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .btn-email:hover { background: var(--indigo-light); transform: translateY(-1px); }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* ─── STRIPE CTA ─── */
+    .btn-stripe {
+      display: block;
+      width: 100%;
+      height: 56px;
+      line-height: 56px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--gold) 0%, #D4A745 100%);
+      color: #0D0F1A;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(201, 168, 76, 0.3);
+      margin-bottom: 12px;
+    }
+    .btn-stripe:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
+    }
+
+    /* ─── SOCIAL PROOF ─── */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .avatars {
+      display: flex;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      background: linear-gradient(135deg, var(--indigo), var(--gold));
+      margin-left: -8px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+    .avatar:first-child { margin-left: 0; }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--indigo));
+      border-radius: 2px;
+      margin: 0 auto 48px;
+    }
+
+    /* ─── SECTION TITLES ─── */
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 6vw, 38px);
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 480px;
+      margin: 0 auto 52px;
+      line-height: 1.65;
+    }
+
+    /* ─── FEATURES ─── */
+    #features {
+      background: linear-gradient(180deg, transparent 0%, rgba(107,92,231,0.04) 50%, transparent 100%);
+    }
+
+    .features-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      border-color: rgba(201, 168, 76, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--indigo-dim);
+      border: 1px solid rgba(107,92,231,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .feature-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .feature-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ─── EARLY ADOPTER ─── */
+    #early-adopter {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .offer-card {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--indigo), var(--gold));
+    }
+
+    .offer-card::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 250px; height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .founder-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--gold), #D4A745);
+      color: var(--bg);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .founder-badge svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .offer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 6vw, 34px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .offer-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .offer-perks {
+      list-style: none;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .offer-perks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    .perk-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .perk-icon svg {
+      width: 11px;
+      height: 11px;
+      color: var(--gold);
+    }
+
+    .perk-strong {
+      font-weight: 600;
+      color: var(--white);
+    }
+    .perk-note {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* ─── PRICING ─── */
+    .pricing-block {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .price-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .price-currency {
+      font-size: 28px;
+      vertical-align: super;
+    }
+
+    .price-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .price-strikethrough {
+      font-size: 15px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      margin-top: 6px;
+    }
+
+    /* ─── URGENCY ─── */
+    .urgency-bar {
+      background: rgba(107,92,231,0.12);
+      border: 1px solid rgba(107,92,231,0.25);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .urgency-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #E15C4E;
+      flex-shrink: 0;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+
+    .urgency-text {
+      font-size: 13px;
+      color: var(--white);
+      font-weight: 500;
+    }
+    .urgency-text span { color: var(--indigo-light); font-weight: 600; }
+
+    /* ─── FAQ ─── */
+    #faq {
+      background: linear-gradient(180deg, transparent 0%, rgba(201,168,76,0.02) 50%, transparent 100%);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: left;
+      padding: 20px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      line-height: 1.4;
+    }
+
+    .faq-question:hover { color: var(--gold); }
+
+    .faq-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--gold);
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+    }
+
+    .faq-answer-inner {
+      padding: 0 20px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ─── FINAL CTA ─── */
+    #final-cta {
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .final-cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 6vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+
+    .final-cta-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .btn-stripe-lg {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold) 0%, #D4A745 100%);
+      color: #0D0F1A;
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      padding: 18px 40px;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 32px rgba(201, 168, 76, 0.35);
+    }
+    .btn-stripe-lg:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(201, 168, 76, 0.45);
+    }
+
+    .guarantee-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 0;
+    }
+
+    footer .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(138,143,168,0.6);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (min-width: 560px) {
+      .email-form {
+        flex-direction: row;
+      }
+      .email-input {
+        flex: 1;
+      }
+      .btn-email {
+        width: auto;
+        padding: 0 24px;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambiance -->
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="orb orb-3" aria-hidden="true"></div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">NUMERIS</a>
+      <a href="https://buy.stripe.com/28E9AU80qbOr27T99scwg01" class="nav-cta">Pack Fondateur — 5€</a>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <div class="container">
+
+      <div class="hero-eyebrow">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="5" fill="#C9A84C"/></svg>
+        Accès fondateur • Lancement imminent
+      </div>
+
+      <h1 class="hero-title">
+        Découvre le schéma invisible<br />
+        qui explique <em>qui tu es</em>
+      </h1>
+
+      <p class="hero-subtitle">
+        NUMERIS analyse ta date de naissance et révèle ta carte numérologique unique — 
+        pas un horoscope générique, mais <strong style="color: var(--white);">ton profil profond</strong>, 
+        tes cycles, et les forces qui t'animent vraiment.
+      </p>
+
+      <!-- Email capture FIRST -->
+      <div class="email-form-wrap">
+        <label class="email-form-label">
+          ✦ Rejoins des milliers de femmes qui se découvrent grâce à NUMERIS
+        </label>
+        <form class="email-form" action="https://formspree.io/f/xpzvwgqn" method="POST">
+          <input
+            class="email-input"
+            type="email"
+            name="email"
+            placeholder="ton@email.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class="btn-email">Je rejoins la liste ✦</button>
+        </form>
+        <p class="form-note">Gratuit · Aucun spam · Tu peux te désinscrire à tout moment</p>
+      </div>
+
+      <!-- Then Stripe CTA -->
+      <a href="https://buy.stripe.com/28E9AU80qbOr27T99scwg01" class="btn-stripe">
+        🌟 Devenir fondatrice pour 5€ — Accès prioritaire
+      </a>
+
+      <!-- Social proof -->
+      <div class="social-proof">
+        <div class="avatars">
+          <div class="avatar">S</div>
+          <div class="avatar">M</div>
+          <div class="avatar">L</div>
+          <div class="avatar">A</div>
+          <div class="avatar">+</div>
+        </div>
+        <span>Des milliers de femmes attendent déjà</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ─── -->
+  <section id="features">
+    <div class="container">
+      <p class="section-eyebrow">Pourquoi NUMERIS</p>
+      <h2 class="section-title">Ce qui te rend <em style="font-style:italic; color:var(--gold)">différente</em>, enfin visible</h2>
+      <p class="section-subtitle">
+        La numérologie n'est pas de la magie. C'est une lecture structurée de qui tu es 
+        — basée sur les patterns de ta date de naissance.
+      </p>
+
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6B5CE7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/>
+              <path d="M12 6v6l4 2"/>
+              <circle cx="12" cy="12" r="3" fill="rgba(107,92,231,0.3)" stroke="none"/>
+            </svg>
+          </div>
+          <div class="feature-content">
+            <h3>Ton profil numérologique complet</h3>
+            <p>
+              Pas un horoscope copié-collé — <strong style="color:var(--white)">ta carte unique</strong>, 
+              calculée à partir de ta date de naissance. Chemin de vie, expression, âme, destin : 
+              chaque chiffre a une signification précise sur ta personnalité et tes dons naturels.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6B5CE7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v1m0 16v1M4.22 4.22l.71.71m12.02 12.02.71.71M3 12h1m16 0h1M4.93 19.07l.71-.71M18.36 5.64l.71-.71"/>
+              <circle cx="12" cy="12" r="4" stroke="#6B5CE7"/>
+            </svg>
+          </div>
+          <div class="feature-content">
+            <h3>Rapport quotidien personnalisé</h3>
+            <p>
+              Chaque matin, un guidage basé sur <strong style="color:var(--white)">ton énergie du jour</strong>. 
+              Pas un mantra générique trouvé sur Pinterest — un message calibré sur tes cycles 
+              numériques actuels, pour que tu avances avec intention plutôt qu'à l'aveugle.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6B5CE7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"/>
+              <path d="M7 12l3-3 4 4 3-4"/>
+            </svg>
+          </div>
+          <div class="feature-content">
+            <h3>Prévisions sur l'année</h3>
+            <p>
+              Comprendre les cycles pour avancer au bon moment. 
+              Quand pousser fort, quand ralentir, quand ouvrir à de nouvelles opportunités — 
+              NUMERIS te donne une <strong style="color:var(--white)">carte de navigation annuelle</strong> 
+              basée sur tes cycles personnels.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EARLY ADOPTER ─── -->
+  <section id="early-adopter">
+    <div class="container">
+
+      <p class="section-eyebrow">Offre Fondateur</p>
+      <h2 class="section-title" style="margin-bottom:12px">Rejoins les fondatrices<br />de NUMERIS</h2>
+      <p class="section-subtitle">
+        Avant le lancement officiel, on ouvre l'accès à <strong style="color:var(--white)">500 places fondatrices</strong>. 
+        C'est toi qui façonnes l'app. C'est toi qui en profites le plus.
+      </p>
+
+      <div class="offer-card">
+
+        <div class="founder-badge">
+          <svg viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8.09 4.77L12 5.27L9.25 7.93L9.93 12L6.5 10.09L3.07 12L3.75 7.93L1 5.27L4.91 4.77L6.5 1Z" fill="#0D0F1A"/></svg>
+          Fondatrice
+        </div>
+
+        <h3 class="offer-title">Ce que tu reçois exactement</h3>
+        <p class="offer-desc">Une fois. C'est tout. 5€ pour entrer dans le cercle des premières.</p>
+
+        <ul class="offer-perks">
+          <li>
+            <span class="perk-icon">
+              <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5.5l3 3 5-5"/></svg>
+            </span>
+            <span>
+              <span class="perk-strong">Accès beta en avant-première</span><br />
+              <span class="perk-note">Tu utilises l'app avant le lancement officiel — avant tout le monde.</span>
+            </span>
+          </li>
+          <li>
+            <span class="perk-icon">
+              <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5.5l3 3 5-5"/></svg>
+            </span>
+            <span>
+              <span class="perk-strong">50% de réduction à vie sur l'abonnement annuel</span><br />
+              <span class="perk-note">Soit environ 20€/an au lieu de 39.99€ — pour toujours, pas juste la première année.</span>
+            </span>
+          </li>
+          <li>
+            <span class="perk-icon">
+              <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5.5l3 3 5-5"/></svg>
+            </span>
+            <span>
+              <span class="perk-strong">Badge "Fondatrice" permanent dans l'app</span><br />
+              <span class="perk-note">Une distinction visible qui identifie les premières — pour toujours.</span>
+            </span>
+          </li>
+          <li>
+            <span class="perk-icon">
+              <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5.5l3 3 5-5"/></svg>
+            </span>
+            <span>
+              <span class="perk-strong">Ton avis façonne l'app</span><br />
+              <span class="perk-note">Tu votes sur les features, tu signales les bugs, tu influences la roadmap — ta voix compte vraiment.</span>
+            </span>
+          </li>
+        </ul>
+
+        <div class="urgency-bar">
+          <div class="urgency-dot"></div>
+          <p class="urgency-text">
+            <span>Il reste des places</span> — Seulement <span>500 places fondatrices</span> disponibles au total
+          </p>
+        </div>
+
+        <div class="pricing-block">
+          <div class="price-main"><span class="price-currency">€</span>5</div>
+          <p class="price-label">une seule fois · pas d'abonnement caché</p>
+          <p class="price-strikethrough">Valeur réelle : économise 200€+ sur 10 ans</p>
+        </div>
+
+        <a href="https://buy.stripe.com/28E9AU80qbOr27T99scwg01" class="btn-stripe">
+          🌟 Je deviens fondatrice pour 5€
+        </a>
+
+        <p style="font-size:13px; color:var(--text-muted); text-align:center;">
+          Paiement sécurisé via Stripe · Remboursement garanti 14 jours · Pas d'engagement
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section id="faq">
+    <div class="container">
+      <p class="section-eyebrow">FAQ</p>
+      <h2 class="section-title">Tes questions, nos vraies réponses</h2>
+      <div class="section-subtitle"></div>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            C'est quoi la numérologie ?
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8l5 5 5-5"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              La numérologie est un système d'analyse basé sur les chiffres dérivés de ta date de naissance et de ton prénom. 
+              Chaque chiffre correspond à des traits de personnalité, des cycles de vie, et des tendances comportementales observées. 
+              Ce n'est pas de l'ésotérisme ni de la magie — c'est une lecture symbolique structurée, 
+              utilisée depuis des millénaires pour mieux se comprendre. NUMERIS le rend accessible, précis, et actuel.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Quand l'app sera disponible ?
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8l5 5 5-5"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              L'accès beta est prévu d'ici quelques semaines. 
+              En tant que fondatrice, tu seras parmi les toutes premières à recevoir le lien d'accès — 
+              directement par email, avant toute annonce publique. 
+              Tu seras notifiée dès que c'est prêt.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Est-ce que je vais vraiment recevoir 50% de réduction ?
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8l5 5 5-5"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Oui, à vie. Pas juste la première année — à vie. 
+              Une fois que tu as ton accès fondatrice, ton compte est tagué de manière permanente 
+              et tu bénéficies du tarif préférentiel tant que tu utilises l'app. 
+              C'est notre engagement envers celles qui nous font confiance dès le début.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Je peux me faire rembourser si ça ne me convient pas ?
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8l5 5 5-5"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Oui, sans question. Tu as 14 jours après ton achat pour demander un remboursement complet. 
+              Envoie un email à contact@numeris.app avec ton numéro de commande Stripe, 
+              et tu seras remboursée sous 5 à 10 jours ouvrés. 
+              On veut que tu rejoignes les fondatrices parce que tu y crois — pas parce que tu es coincée.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            C'est quoi exactement le badge Fondatrice ?
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8l5 5 5-5"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              C'est une distinction permanente et visible dans ton profil NUMERIS. 
+              Une étoile dorée + le titre "Fondatrice" apparaissent sur ton compte — 
+              pour toujours, même si d'autres rejoignent l'app plus tard. 
+              C'est une façon de reconnaître et d'honorer celles qui ont cru en nous depuis le début. 
+              Il sera impossible d'obtenir ce badge après la date de lancement officiel.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FINAL CTA ─── -->
+  <section id="final-cta">
+    <div class="container">
+      <div class="divider"></div>
+      <h2 class="final-cta-title">
+        Tu mérites de te comprendre<br />
+        <em style="font-style:italic; color:var(--gold)">vraiment</em>.
+      </h2>
+      <p class="final-cta-sub">
+        500 places. 5€. Une seule fois.<br />
+        Rejoins les premières fondatrices de NUMERIS.
+      </p>
+      <a href="https://buy.stripe.com/28E9AU80qbOr27T99scwg01" class="btn-stripe-lg">
+        🌟 Devenir fondatrice maintenant
+      </a>
+      <p class="guarantee-note">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.5 4.5H12L9.25 6.75L10.25 10.5L7 8.5L3.75 10.5L4.75 6.75L2 4.5H5.5L7 1Z" fill="#6B5CE7"/></svg>
+        Remboursement garanti 14 jours · Paiement 100% sécurisé · Stripe
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">NUMERIS</div>
+      <nav class="footer-links" aria-label="Liens légaux">
+        <a href="/politique-confidentialite">Politique de confidentialité</a>
+        <a href="/mentions-legales">Mentions légales</a>
+        <a href="mailto:contact@numeris.app">Contact</a>
+      </nav>
+      <p class="footer-copy">© 2026 NUMERIS. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(function(el) {
+        el.classList.remove('open');
+      });
+      // Open this one if it wasn't open
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+
+</body>
+</html>

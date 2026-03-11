@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bienvenue parmi les fondatrices — NUMERIS</title>
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0D0F1A;
+      --gold: #C9A84C;
+      --gold-light: #E2C47A;
+      --gold-dim: rgba(201, 168, 76, 0.15);
+      --indigo: #6B5CE7;
+      --indigo-dim: rgba(107, 92, 231, 0.15);
+      --white: #F5F3EE;
+      --text-muted: #8A8FA8;
+      --border: rgba(201, 168, 76, 0.2);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Stars background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 50% 0%, rgba(107,92,231,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 80% 80%, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      width: 100%;
+    }
+
+    /* Confetti animation */
+    .emoji-burst {
+      font-size: 52px;
+      margin-bottom: 24px;
+      animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .badge-card {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.5s 0.1s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .founder-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--gold), #D4A745);
+      color: #0D0F1A;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 7vw, 40px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .info-card {
+      background: rgba(107,92,231,0.08);
+      border: 1px solid rgba(107,92,231,0.2);
+      border-radius: 14px;
+      padding: 20px 20px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.5s 0.2s ease both;
+      text-align: left;
+    }
+
+    .info-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--indigo);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .info-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .info-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--white);
+    }
+
+    .step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(107,92,231,0.25);
+      border: 1px solid rgba(107,92,231,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--indigo);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Waitlist form */
+    .waitlist-form {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 24px 20px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
+
+    .waitlist-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .waitlist-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .waitlist-input {
+      width: 100%;
+      height: 48px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      padding: 0 16px;
+      outline: none;
+    }
+    .waitlist-input::placeholder { color: var(--text-muted); }
+    .waitlist-input:focus { border-color: var(--gold); }
+
+    .btn-waitlist {
+      width: 100%;
+      height: 48px;
+      background: var(--indigo);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-waitlist:hover { background: #8B7EF7; }
+
+    .btn-back {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 12px 24px;
+      transition: color 0.2s, border-color 0.2s;
+      animation: fadeUp 0.5s 0.4s ease both;
+    }
+    .btn-back:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      display: block;
+      margin-top: 40px;
+      animation: fadeUp 0.5s 0.5s ease both;
+      opacity: 0.7;
+    }
+
+    @media (min-width: 400px) {
+      .waitlist-row { flex-direction: row; }
+      .waitlist-input { flex: 1; }
+      .btn-waitlist { width: auto; padding: 0 20px; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="emoji-burst">🎉</div>
+
+    <div class="badge-card">
+      <div class="founder-badge">⭐ Fondatrice</div>
+      <h1>Bienvenue parmi<br />les fondatrices de NUMERIS !</h1>
+      <p class="subtitle">
+        Tu fais partie des premières. Ton badge Fondatrice est reservé, 
+        ton accès prioritaire est confirmé.
+      </p>
+    </div>
+
+    <div class="info-card">
+      <p class="info-card-title">Ce qui va se passer maintenant</p>
+      <ul class="info-steps">
+        <li>
+          <span class="step-num">1</span>
+          <span>Tu recevras un <strong>email de confirmation</strong> sous peu avec tous les détails de ton accès fondatrice.</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span>Quelques semaines avant le lancement, tu recevras <strong>le lien d'accès beta</strong> en avant-première.</span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span>Ton badge Fondatrice et ta <strong>réduction à vie de 50%</strong> seront appliqués automatiquement sur ton compte.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="waitlist-form">
+      <label class="waitlist-label">💌 Assure-toi d'être sur la liste de lancement</label>
+      <form class="waitlist-row" action="https://formspree.io/f/xpzvwgqn" method="POST">
+        <input
+          class="waitlist-input"
+          type="email"
+          name="email"
+          placeholder="ton@email.com"
+          autocomplete="email"
+          required
+        />
+        <input type="hidden" name="source" value="merci_page" />
+        <button type="submit" class="btn-waitlist">Je confirme ✦</button>
+      </form>
+    </div>
+
+    <a href="/" class="btn-back">← Retour à la page NUMERIS</a>
+
+    <a href="/" class="logo">NUMERIS</a>
+
+  </div>
+</body>
+</html>
