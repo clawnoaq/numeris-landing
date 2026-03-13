@@ -793,22 +793,30 @@
       </p>
 
       <!-- Email capture FIRST -->
-      <div class="email-form-wrap">
-        <label class="email-form-label">
+      <div class="email-form-wrap" id="email-form-wrap">
+        <label class="email-form-label" id="email-form-label">
           ✦ Rejoins des milliers de femmes qui se découvrent grâce à NUMERIS
         </label>
-        <form class="email-form" action="https://formspree.io/f/mnjgvlgn" method="POST">
+        <form class="email-form" id="email-form" onsubmit="handleEmailSubmit(event)">
           <input
             class="email-input"
             type="email"
             name="email"
+            id="email-input"
             placeholder="ton@email.com"
             required
             autocomplete="email"
           />
-          <button type="submit" class="btn-email">Je rejoins la liste ✦</button>
+          <button type="submit" class="btn-email" id="email-submit-btn">Je rejoins la liste ✦</button>
         </form>
-        <p class="form-note">Gratuit · Aucun spam · Tu peux te désinscrire à tout moment</p>
+        <p class="form-note" id="form-note">Gratuit · Aucun spam · Tu peux te désinscrire à tout moment</p>
+
+        <!-- Success state (hidden by default) -->
+        <div id="form-success" style="display:none; text-align:center; padding:8px 0;">
+          <div style="font-size:36px; margin-bottom:10px; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;">✨</div>
+          <p style="font-size:16px; font-weight:600; color:var(--white); margin-bottom:6px;">Tu es sur la liste !</p>
+          <p style="font-size:14px; color:var(--text-muted);">On te prévient en avant-première dès l'ouverture.</p>
+        </div>
       </div>
 
       <!-- Then Stripe CTA -->
@@ -1113,14 +1121,53 @@
     function toggleFaq(btn) {
       var item = btn.closest('.faq-item');
       var isOpen = item.classList.contains('open');
-      // Close all
       document.querySelectorAll('.faq-item.open').forEach(function(el) {
         el.classList.remove('open');
       });
-      // Open this one if it wasn't open
       if (!isOpen) item.classList.add('open');
     }
+
+    async function handleEmailSubmit(e) {
+      e.preventDefault();
+      var btn = document.getElementById('email-submit-btn');
+      var input = document.getElementById('email-input');
+      var email = input.value;
+
+      // Loading state
+      btn.disabled = true;
+      btn.textContent = '…';
+
+      try {
+        var res = await fetch('https://formspree.io/f/mnjgvlgn', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        });
+
+        if (res.ok) {
+          // Show success animation
+          document.getElementById('email-form').style.display = 'none';
+          document.getElementById('email-form-label').style.display = 'none';
+          document.getElementById('form-note').style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Je rejoins la liste ✦';
+          alert('Une erreur est survenue. Réessaie dans un instant.');
+        }
+      } catch(err) {
+        btn.disabled = false;
+        btn.textContent = 'Je rejoins la liste ✦';
+        alert('Une erreur est survenue. Réessaie dans un instant.');
+      }
+    }
   </script>
+  <style>
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
 
 </body>
 </html>
